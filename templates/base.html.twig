@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin ="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css./all.css">
+        
+        {% block stylesheets %}
+          
+        {% endblock %}
+          <style>
+             .grid{
+                 display: grid;
+                 grid-template-columns: repeat(3, 1fr);
+                 grid-gap: 20px;
+             }
+             .filter{
+                 display: block;
+                 position: sticky;
+                 top: 20px;
+             }
+            </style>
+            {{ encore_entry_link_tags('app') }}
+            {{ encore_entry_script_tags('app') | replace({'src=': 'defer src='})| raw }}
+
+
+
+    </head>
+    <body>
+            
+     
+         
+           
+     <nav class="navbar navbar-dark bg-primary">
+     <div> 
+       <a href="/" class="navbar-brand mb-0 h1">Produits</a> 
+       
+       {% if not app.user %}
+        <a  href="{{ path('security_login') }}" class="navbar-brand mb-0 h1">Connexion</a>
+         <a  href="{{ path('security_registration') }}" class="navbar-brand mb-0 h1">Inscription</a>
+       {% else %}
+        <a  href="{{ path('security_logout') }}" class="navbar-brand mb-0 h1">Deconnexion</a>
+       {% endif %}
+
+
+    {% if app.user %}
+      {% set test = app.user.role %}
+
+        {% if test == "Client" %}
+       <a  href="{{ path('cart_index') }}" class="navbar-brand mb-0 h1">Panier</a>
+       {% endif %}
+        
+       {% if test == "Fournisseur" %}
+       <a  href="{{ path('cart_index') }}" class="navbar-brand mb-0 h1">Panier</a>
+       <a  href="/product/new" class="navbar-brand mb-0 h1">Ajouter un produit</a>
+       {% endif %}
+
+       {% if test == "Admin" %}
+       <a  href="{{ path('cart_index') }}" class="navbar-brand mb-0 h1">Panier</a>
+       <a  href="/user" class="navbar-brand mb-0 h1">Gestion des Utilisateurs</a>
+       
+       {% endif %}
+
+    {%  endif %}
+     </div> 
+     </nav>
+
+     <div style="margin-top: 3rem">
+        {% block body %}{% endblock %}
+        </div>
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    </body>
+</html>

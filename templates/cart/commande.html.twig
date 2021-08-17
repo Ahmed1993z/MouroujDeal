@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h1>Commande des produits   </h1>
+{{ form_start(form)}}
+
+{{ form_row(form.username, {'label':'Nom d\'utilisateur','attr':{'placeholder':'Nom d\'utilisateur...'} })}}
+{{ form_row(form.email, {'label':'Adresse email ','attr':{'placeholder':'Adresse email...'} })}}
+{{ form_row(form.cardname, {'label':'Nom de la carte ','attr':{'placeholder':'Mettez le nom de votre carte...'} })}}
+{{ form_row(form.cardnumber, {'label':'Numero de la carte','attr':{'placeholder':'Mettez le numéro de votre carte...'} })}}
+
+<button type="submit" class="btn btn-success">Commandez! !</button>
+{{ form_end(form)}}
+
+{% endblock %}

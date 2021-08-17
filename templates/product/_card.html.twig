@@ -1,0 +1,70 @@
+
+<div class ="card" id ="product-{{product.id}}">
+  <img src="{{ product.image }}" alt="" class="card-img-top">
+  <div class ="card-body">
+   <h5 class="card-title">{{ product.name }}</h5>
+   <div class ="card-title text-primary" style=" font-weight: bold; font-size: 1.5rem;">
+    {{product.price | number_format(0,',','')}} $
+    {% if product.promo %}
+     <div class="text text-warning"> Promo
+     </div>
+
+    {% endif %}
+   </div>
+    <p class ="text text-muted"> {{product.description}}
+     </p>
+     <div>
+      {% for c in product.categories %}
+       <em class="text-muted text-primary text-italic">#{{c.name}}</em>
+
+      {% endfor %}
+     </div>
+     <div>
+      <hr>
+      {% if  product.quantity == 0  %}
+       <a href="" class="btn btn-warning float-right" disabled>
+                        <i class="fas fa-shopping-cart mr-1"></i>
+                        Hors Stock !
+                    </a>
+                        {% else %}
+                        <a href="" class="btn btn-primary float-right" disabled >
+                        <i class="fas fa-shopping-cart mr-1"></i>
+                        En Stock!
+                    </a>
+                    {% endif %}
+                    <br> <br> 
+
+       {% if app.user %}
+       
+                    <a href="{{path ('cart_add', {'id': product.id })}}" class="btn btn-success float-right">
+                        <i class="fas fa-shopping-cart mr-1"></i>
+                        Ajouter
+                    </a>
+                
+                  
+          {% set test = app.user.role %}
+
+          {% if test == "Fournisseur" %}
+          <a  href="{{path ('product_edit',{'id': product.id })}}" class="btn btn-secondary float-left">
+          <i class="fas fa-shopping-cart mr-1"></i>
+           Modifier</a>
+              {% endif %} 
+
+          {% if test == "Admin" %}
+          <a  href="{{path ('product_edit',{'id': product.id })}}" class="btn btn-secondary float-left">
+          <i class="fas fa-shopping-cart mr-1"></i>
+           Modifier</a>  
+           <a  href="{{path ('product_remove',{'id': product.id })}}" onclick="return confirm('êtes vous sûr?')" class="btn btn-danger float-left">
+          <i class="fas fa-shopping-cart mr-1"></i>
+           Supprimer</a>
+        {% endif %}
+        
+        {% endif %}
+        
+
+  
+     </div>
+
+  </div>
+
+</div>

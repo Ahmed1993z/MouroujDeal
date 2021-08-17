@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1> Création d'un produit</h1>
+
+{{form_start(formProduct)}}
+{{form_row(formProduct.name ,{'attr' :{'placeholder':'Nom du produit'}})}}
+{{form_row(formProduct.price ,{'attr' :{'placeholder':'Prix du produit'}})}}
+{{form_row(formProduct.description ,{'attr' :{'placeholder':'Description du produit'}})}}
+{{form_row(formProduct.content ,{'attr' :{'placeholder':'Contenu du produit'}})}}
+{{form_row(formProduct.image ,{'attr' :{'placeholder':'Image du produit'}})}}
+{{form_row(formProduct.promo)}}
+{{form_row(formProduct.categories )}}
+{{form_row(formProduct.quantity )}}
+        
+ <button type="submit" class="btn btn-success"> 
+ {% if editMode %}
+   Modifier 
+   {% else %}
+  Ajouter le produit
+  {% endif %}
+ </button>
+{{form_end(formProduct)}}
+{% endblock %}
